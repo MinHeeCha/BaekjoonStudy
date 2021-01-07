@@ -1,23 +1,33 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 int main() {
     int num;
-    char str[3][50];
+    string str[50];
 
     cin >> num;
-    printf("num : %d\n", num);
-    getchar();
+    if (num > 50) {
+        cout << "Num must be under 50!" << endl;
+        return 0;
+    }
 
-    for (int i = 0; i < num; i++) {
-
-        // scanf("%s", &str[i]);
-        // cin.getline();
+    for (int i = 0; i < num; i++)
         cin >> str[i];
 
-        // gets(str[i]);
+    char c;
+    for (int i = 0; i < str[0].length; i++) {
+        c = str[0][i];
 
-        printf("input %d :%s\n", i + 1, str);
+        for (int j = 0; j < num; j++) {
+            if (c != str[j][i]) {
+                c = '?';
+                break;
+            }
+        }
+        
+        cout << c;
     }
+
     return 0;
 }
