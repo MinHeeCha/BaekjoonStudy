@@ -18,7 +18,5 @@ int main() {
         cin >> rows[i];
     }
 
-
-
     return 0;
 }
