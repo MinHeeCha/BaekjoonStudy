@@ -1,30 +1,10 @@
 #include <iostream>
-#include <string>
 using namespace std;
 
-int AddCycle(int user) {
-    int left, right;
-    int result = 0, sum = 0;
-    static int count = 0, userNum = user;
-
-    left = user / 10;
-    right = user % 10;
-    sum = left + right;
-
-    result = right * 10 + sum % 10;
-
-    /*cout << "left : " << left << " / right : " << right << endl;
-    cout << "result : " << result << " / count : " << count << endl;*/
-
-    count++;
-    if (result == userNum)
-        return count;
-    else
-        int temp = AddCycle(result);
-}
-
 int main() {
-    int count, user;
+    int count = 0, user;
+    int left = 0, right = 0;
+    int result = 0, sum = 0;
 
     cin >> user;
     if (user < 0 || user > 99) {
@@ -32,8 +12,18 @@ int main() {
         return 0;
     }
 
-    count = AddCycle(user);
-    
+    result = user;
+
+    while (1) {
+        left = result / 10;
+        right = result % 10;
+        sum = left + right;
+        result = right * 10 + sum % 10;
+        count++;
+
+        if (result == user)
+            break;
+    }
     cout << count << endl;
 
     return 0;
