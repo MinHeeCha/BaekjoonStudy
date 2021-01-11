@@ -1,10 +1,9 @@
 #include <iostream>
-#include <algorithm>
 #include <vector>
 using namespace std;
 
 int main() {
-    int num, leaderNum = 0;
+    int num, leaderNum = 0, max = 0;
 
     cin >> num;
     if (num < 3 || num > 1000)
@@ -15,17 +14,24 @@ int main() {
         for (int j = 0; j < 5; j++)
             cin >> arr[i][j];
 
-    vector<int> result(num);
-    for (int i = 0; i < num; i++)
-        for (int j = 0; j < 4; j++)
-            if (arr[j][i] == arr[j + 1][i]) {
-                result[j]++;
-                result[j + 1]++;
-            }
+    vector<vector<bool>> check(num, vector<bool>(num, false));
+    for (int i = 0; i < 5; i++)
+        for (int j = 0; j < num; j++)
+            for (int k = j + 1; k < num; k++)
+                if (arr[j][i] == arr[k][i])
+                    check[j][k] = check[k][j] = true;
 
-    for (int i = 0; i < num; i++)
-        if (result[leaderNum] < result[i])
+    int count;
+    for (int i = 0; i < num; i++) {
+        count = 0;
+
+        for (int j = 0; j < num; j++)
+            if (check[i][j])
+                count++;
+
+        if (count > max)
             leaderNum = i;
+    }
 
     cout << leaderNum + 1 << endl;
 
