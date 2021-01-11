@@ -1,32 +1,25 @@
 #include <iostream>
-#include <string>
 #include <vector>
 using namespace std;
 
 int main() {
-    int i = 0, len;
-    string result;
-    vector<string> user;
+    string user, result = "yes";
 
     while (true) {
-        cin >> user[i];
-        
-        if (user[i] == "0")
+        cin >> user;
+
+        if (user == "0")
             break;
-    }
 
-    for (i = 0; i < user.size() - 1; i++) {
-        len = user[i].length();
-        result = "yes";
-
-        for (int j = 0; j < len / 2; i++) {
-            if (user[i][j] != user[i][len - 1 - j])
+        for (int i = 0; i < user.length() / 2; i++) {
+            if (user[i] != user[user.length() - 1 - i]) {
                 result = "no";
+                break;
+            }
         }
-        
+
         cout << result << endl;
     }
-
 
     return 0;
 }
