@@ -19,20 +19,27 @@ int main() {
         for (int j = 0; j < num - 1; j++)
             for (int k = j + 1; k < num; k++)
                 if (arr[j][i] == arr[k][i])
-                    check[j][i] = check[k][i] = true;
+                    check[j][k] = check[k][j] = true;
 
     int count;
     for (int i = 0; i < num; i++) {
         count = 0;
 
-        for (int j = 0; j < num; j++)
-            if (check[i][j])
+        for (int j = 0; j < num; j++) {
+            if (check[i][j]) {
                 count++;
+                //cout << "X ";
+            }
+            //else
+                //cout << ". ";
+        }
             
         if (count > max) {
             max = count;
             leaderNum = i;
         }
+
+        //cout << "   :: " << count << endl;
     }
 
     cout << leaderNum + 1 << endl;
