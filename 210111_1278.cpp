@@ -16,10 +16,10 @@ int main() {
 
     vector<vector<bool>> check(num, vector<bool>(num, false));
     for (int i = 0; i < 5; i++)
-        for (int j = 0; j < num; j++)
+        for (int j = 0; j < num - 1; j++)
             for (int k = j + 1; k < num; k++)
                 if (arr[j][i] == arr[k][i])
-                    check[j][k] = check[k][j] = true;
+                    check[j][i] = check[k][i] = true;
 
     int count;
     for (int i = 0; i < num; i++) {
@@ -28,9 +28,11 @@ int main() {
         for (int j = 0; j < num; j++)
             if (check[i][j])
                 count++;
-
-        if (count > max)
+            
+        if (count > max) {
+            max = count;
             leaderNum = i;
+        }
     }
 
     cout << leaderNum + 1 << endl;
