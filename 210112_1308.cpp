@@ -2,10 +2,10 @@
 using namespace std;
 
 bool isLeap(int year) {
-    if (year % 4 == 0)
-        return true;
-    if (year % 100 == 0)
+    if (year % 4 != 0)
         return false;
+    if (year % 100 != 0)
+        return true;
     if (year % 400 == 0)
         return true;
 
@@ -18,7 +18,7 @@ int calcDays(int y, int m, int d) {
 
     for (int i = 0; i < y; ++i)
         days += 365 + isLeap(i);
-    for (int i = 0; i < m; ++i) {
+    for (int i = 0; i < m - 1; ++i) {
         if (i == 1)
             days += isLeap(y);
         days += months[i];
@@ -34,6 +34,11 @@ int main() {
 
     if (y1 > y2 || y1 < 1 || y1 > 9999 || y2 < 1 || y2 > 9999)
         return 0;
+
+    if (y2 - y1 >= 1000 && (calcDays(0, m1, d1) <= calcDays(0, m2, d2))) {
+        cout << "gg" << endl;
+        return 0;
+    }
 
     int days1 = calcDays(y1, m1, d1);
     int days2 = calcDays(y2, m2, d2);
