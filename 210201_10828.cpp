@@ -16,31 +16,31 @@ public:
         delete[] values;
     }
 
-    void push(int value) {
-        if (!isFull)
+    void Push(int value) {
+        if (!IsFull())
             values[++top] = value;
         else
             cout << "Stack is full" << endl;
     }
-    void pop() {
-        if (!isEmpty)
+    void Pop() {
+        if (!IsEmpty())
             top--;
         else
             cout << "Stack is empty" << endl;
     }
-    int top() {
-        if (!isEmpty)
+    int Top() {
+        if (!IsEmpty())
             return values[top];
         else
             return NULL;
     }
-    bool isEmpty() {
+    bool IsEmpty() {
         if (top < 0)
             return true;
         else
             return false;
     }
-    bool isFull() {
+    bool IsFull() {
         if (top + 1 == size)
             return true;
         else
@@ -48,15 +48,34 @@ public:
     }
 };
 
-void print(Stack& s) {
+void Print(Stack& s) {
     int* temp = s.values;
     int size = s.top;
 
-    if (int i = 0; i < size; i++)
-        cout << 
+    for (int i = 0; i < size + 1; i++)
+        cout << temp[i] << " -> ";
+
+    cout << endl;
 }
 
 int main() {
+    Stack st;
+
+    st.Push(1);
+    st.Push(2);
+
+    Print(st);
+
+    st.Push(3);
+    st.Push(4);
+
+    Print(st);
+
+    st.Pop();
+    st.Pop();
+
+    Print(st);
+
 
     return 0;
 }
