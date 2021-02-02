@@ -1,16 +1,15 @@
 #include <iostream>
-#define MAXSIZE 5
 using namespace std;
 
 class Stack {
 public:
-    int top, size;
+    int curSize, maxSize;
     int* values;
 
-    Stack() {
-        size = MAXSIZE;
+    Stack(int size) {
+        maxSize = size;
         values = new int[size];
-        top = -1;
+        curSize = -1;
     }
     ~Stack() {
         delete[] values;
@@ -18,30 +17,33 @@ public:
 
     void Push(int value) {
         if (!IsFull())
-            values[++top] = value;
+            values[++curSize] = value;
         else
             cout << "Stack is full" << endl;
     }
     void Pop() {
         if (!IsEmpty())
-            top--;
+            curSize--;
         else
-            cout << "Stack is empty" << endl;
+            cout << "-1" << endl;
     }
     int Top() {
-        if (!IsEmpty())
-            return values[top];
+        if (!IsEmpty()) {
+            //cout << "top : " << values[curSize] << endl;
+            return values[curSize];
+        }
         else
             return NULL;
     }
     bool IsEmpty() {
-        if (top < 0)
+        //cout << "Is Empty : " << curSize << endl;
+        if (curSize < 0)
             return true;
         else
             return false;
     }
     bool IsFull() {
-        if (top + 1 == size)
+        if (curSize + 1 == maxSize)
             return true;
         else
             return false;
@@ -50,7 +52,7 @@ public:
 
 void Print(Stack& s) {
     int* temp = s.values;
-    int size = s.top;
+    int size = s.curSize;
 
     for (int i = 0; i < size + 1; i++)
         cout << temp[i] << " -> ";
@@ -59,23 +61,44 @@ void Print(Stack& s) {
 }
 
 int main() {
-    Stack st;
+    int maxSize;
+    
+    cin >> maxSize;
+    Stack st(maxSize);
 
-    st.Push(1);
-    st.Push(2);
+    while (true) {
+        char user[10];
 
-    Print(st);
+        cin >> user;
+        if (strcmp(user, "push") == 0) {
+            int temp;
+            cin >> temp;
 
-    st.Push(3);
-    st.Push(4);
+            st.Push(temp);
+            cout << "curren size :" << (st.curSize + 1) << endl;
+        }
+        else if (strcmp(user, "pop") == 0) {
+            cout << st.Top() << endl;
+            //st.Pop();
+        }
+        else if (strcmp(user, "top")) {
+            cout << st.Top() << endl;
+        }
+        else if (strcmp(user, "size")) {
+            cout << st.curSize << endl;
+        }
+        else if (strcmp(user, "empty")) {
+            int temp = 0;
 
-    Print(st);
+            if (st.IsEmpty())
+                temp = 1;
 
-    st.Pop();
-    st.Pop();
-
-    Print(st);
-
+            cout << temp << endl;
+        }
+        else
+            cout << "Wrong input" << endl;
+    }
+    
 
     return 0;
 }
