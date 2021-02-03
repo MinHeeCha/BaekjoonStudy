@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 class Stack {
@@ -19,7 +20,7 @@ public:
         if (!IsFull())
             values[++curSize] = value;
         else
-            cout << "Stack is full" << endl;
+            return;
     }
     void Pop() {
         if (!IsEmpty())
@@ -28,15 +29,12 @@ public:
             cout << "-1" << endl;
     }
     int Top() {
-        if (!IsEmpty()) {
-            //cout << "top : " << values[curSize] << endl;
+        if (!IsEmpty())
             return values[curSize];
-        }
         else
-            return NULL;
+            return -1;
     }
     bool IsEmpty() {
-        //cout << "Is Empty : " << curSize << endl;
         if (curSize < 0)
             return true;
         else
@@ -50,15 +48,15 @@ public:
     }
 };
 
-void Print(Stack& s) {
-    int* temp = s.values;
-    int size = s.curSize;
-
-    for (int i = 0; i < size + 1; i++)
-        cout << temp[i] << " -> ";
-
-    cout << endl;
-}
+//void Print(Stack& s) {
+//    int* temp = s.values;
+//    int size = s.curSize;
+//
+//    for (int i = 0; i < size + 1; i++)
+//        cout << temp[i] << " -> ";
+//
+//    cout << endl;
+//}
 
 int main() {
     int maxSize;
@@ -75,19 +73,20 @@ int main() {
             cin >> temp;
 
             st.Push(temp);
-            cout << "curren size :" << (st.curSize + 1) << endl;
         }
         else if (strcmp(user, "pop") == 0) {
+            if (!st.IsEmpty())
+                cout << st.Top() << endl;
+            
+            st.Pop();
+        }
+        else if (strcmp(user, "top") == 0) {
             cout << st.Top() << endl;
-            //st.Pop();
         }
-        else if (strcmp(user, "top")) {
-            cout << st.Top() << endl;
+        else if (strcmp(user, "size") == 0) {
+            cout << (st.curSize + 1) << endl;
         }
-        else if (strcmp(user, "size")) {
-            cout << st.curSize << endl;
-        }
-        else if (strcmp(user, "empty")) {
+        else if (strcmp(user, "empty") == 0) {
             int temp = 0;
 
             if (st.IsEmpty())
@@ -96,9 +95,8 @@ int main() {
             cout << temp << endl;
         }
         else
-            cout << "Wrong input" << endl;
+            break;
     }
-    
 
     return 0;
 }
